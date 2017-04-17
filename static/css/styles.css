@@ -1,0 +1,42 @@
+
+form{
+  margin:10px;
+}
+
+.btn {
+  width: 100%;
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
+.navbar .row{
+  margin: 0 10px;
+}
+
+.container-fluid {
+  padding: 0;
+}
+
+.nav-item-highlight {
+  height: 40px;
+  font-size: 1.5em;
+  text-align: center;
+  padding: 0;
+}
+
+.nav-item-highlight:hover{
+  background-color: white; 
+  cursor: pointer;
+}
+
+.nav-item-highlight a {
+  color: white;
+  text-decoration: none;
+}
+
+.nav-item-highlight:hover a{
+ color : #0275D8;
+}
+

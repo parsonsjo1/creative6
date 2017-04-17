@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+  <title>User Login and Sessions</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" 
+        href="/static/css/styles.css" />
+</head>
+<body>
+
+<div class="container-fluid" ng-controller="myController">
+    <nav class="navbar navbar-inverse bg-primary">
+      <div class="row">
+        <div class="col-10">
+          <div class="navbar-brand" ng-model="user.username" style="color: #FFF">Authentication</div>
+        </div>
+        <div class="col-1 align-self-center nav-item-highlight" ng-mouseover="hoverActive=true" ng-mouseleave="hoverActive=false" ng-style="hoverActive ? {'background-color' : #FFF } : {'background-color' : '#0275D8' }">
+          <a href="/signup" ng-style="hoverActive ? {'color' : '#0275D8' } : {}">Sign Up</a>
+        </div>
+        <div class="col-1 align-self-center nav-item-highlight" ng-mouseover="hoverActive2=true" ng-mouseleave="hoverActive2=false" ng-style="hoverActive2 ? {'background-color' : #FFF } : {'background-color' : '#0275D8' }">
+          <a href="/login" ng-style="hoverActive2 ? {'color' : '#0275D8' } : {}">Login</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="row align-items-center" style="margin: 25px 0;">
+      <div class="col-8 offset-4">
+
+      <div class="row align-items-center">
+
+        <div class="col-12">
+          <h2>Login</h2>
+          <form method="POST" action="/login">
+            <div class="row" style="margin: 10px 0;">
+              <div class="col-2">
+                <label for="username">Username:</label>
+              </div>
+              <div class="col-4">
+                <input class="form-control" id="username" type="text" name="username">
+              </div>
+            </div>
+           <div class="row" style="margin: 10px 0;">
+              <div class="col-2">
+                <label for="email">Password:</label>
+              </div>
+              <div class="col-4">
+                <input class="form-control" id="password" type="password" name="password">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <input class="btn btn-primary" type="submit" value="Login">
+              </div>
+            </div>
+          </form>
+          <div class="row align-items-center" style="height: 100px;">
+            <div class="col-12">
+              <h1><%= msg %></h1>
+            </div>
+          </div>
+        </div>
+      </div> 
+    </div>
+  </div>
+</body>
+</html>
