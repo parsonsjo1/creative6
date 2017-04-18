@@ -1,6 +1,8 @@
 var crypto = require('crypto');
 var express = require('express');
+
 module.exports = function(app) {
+
   var users = require('./controllers/users_controller');
   app.use('/static', express.static( './static')).
       use('/lib', express.static( '../lib')

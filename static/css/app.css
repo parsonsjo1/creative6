@@ -1,12 +1,15 @@
-﻿body {
-  padding: 50px
-  padding-top: 200px;
+body {
   background-image: url(http://www.rds-tools.com/wp-content/uploads/161019_cybersecurity.jpg);
+  /*background-image: url('../images/ep_naturalblack.png');*/
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
   background-repeat:no-repeat;
   color: white;
+}
+
+form {
+  margin: 0;
 }
 
 h1, #decMessage {
@@ -19,4 +22,20 @@ h1, #decMessage {
 
 #myModal, #myModal2 {
   color: rgb(0, 51, 128);
+}
+
+.black-box {
+  background-color: black;
+  border-radius: 10px;
+  min-height: 500px;
+}
+
+.container {
+  margin: 0;
+  width: 100%;
+}
+
+.instructions {
+  padding: 5px;
+  margin: 15px;
 }

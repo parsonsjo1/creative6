@@ -1,10 +1,10 @@
 <!doctype html>
-<html ng-app="myApp">
+<html class="fill-height" ng-app="myApp">
 <head>
   <title>User Login and Sessions</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" 
-      href="/static/css/styles.css" />
+  <link rel="stylesheet" type="text/css" href="/static/css/styles.css" />
+  <link rel="stylesheet" type="text/css"  href="/static/css/app.css" />
   <style type="text/css">
 
     .navbar {
@@ -16,25 +16,128 @@
     }   
 
   </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
 </head>
-<body>
-  <div class="container-fluid" ng-controller="myController">
-    <nav class="navbar navbar-inverse bg-primary">
-      <div class="row">
-        <div class="col-10">
-          <div class="navbar-brand">Welcome <%= username %></div>
-        </div>
-        <div class="col-1 align-self-center nav-item-highlight">
-          <a href="/user">Edit User</a>
-        </div>
-        <div class="col-1 align-self-center nav-item-highlight">
-          <a href="/logout">Logout</a>
+<body class="fill-height" ng-controller="mainCtrl">
+
+
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-inverse bg-primary" ng-controller="myController">
+    <div class="row">
+      <div class="col-8">
+        <div class="navbar-brand">Welcome <%= username %></div>
+      </div>
+      <div class="col-2 align-self-center nav-item-highlight">
+        <a href="/user">Edit User</a>
+      </div>
+      <div class="col-2 align-self-center nav-item-highlight">
+        <a href="/logout">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container fill-height">
+    <div class="row fill-height">
+      <div class="col-12" style="text-align: center; margin: auto auto;">
+        <h1 style="color: white;">The Enigma Machine</h1>
+      </div>
+      <div class="col-5 offset-1 center black-box">
+        <div class="row align-items-center">
+
+          <!-- Send secret message instructions -->
+          <div class="col-10 offset-1 instructions" id="send-message-instructions">
+            <h3>To send a message:</h3>
+            <ol>
+              <li>Enter your message.</li>
+              <li>Click the "Encode" button to submit the message.</li>
+              <li>Save the pin you are given!</li>
+            </ol>
+          </div>
+
+          <!-- Send secret message form -->
+          <div class="col-10 offset-1 form" id="send-message-form">
+            <form>
+              <label for="username">Username:</label>
+              <input class="form-control" type="text" id="username" placeholder="<%= username %>" value="<%= username %>" ng-model="username" ng-init="username='<%=username%>'" disabled>
+              <label for="sendMessage">Enter your Message:</label>
+              <textarea ng-model="sendingMessage" class="form-control" id="sendMessage" rows="3"></textarea>
+              <button ng-click="postMessage()" class="btn btn-danger btn-lg" id="leaveMessage" data-toggle="modal" data-target="#myModal">Encode</button>
+            </form>
+          </div>
+
         </div>
       </div>
-    </nav>
-    <div class="row align-items-center" style="height: 500px;">
-      <div class="col-12" style="text-align: center;">
-        <h1><%= msg %></h1>
+
+      <div class="col-5 offset-1 center black-box">
+        <div class="row align-items-center">
+
+          <div class="col-10 offset-1 instructions" id="retrieve-message-instructions">
+            <h3>To retrieve a message:</h3>
+            <ol>
+              <li>Enter the sender's name.</li>
+              <li>Enter your pin.</li>
+              <li>Click the "Decode" button.</li>
+              <li>Messages can only be retrieved once! Then they are deleted.</li>
+            </ol>
+          </div>
+
+          <div class="col-10 offset-1 form" id="send-message-instructions">
+            <form>
+              <label for="senderName">Sender's Name:</label> <input ng-model="retrieveName" class="form-control" type="text" id="senderName" placeholder="Name">
+              <label for="pin">Message Pin:</label> <input ng-model="retrievePin" class="form-control" type="text" id="pin" placeholder="Pin">
+              <button ng-click="getMessage()" class="btn btn-danger btn-lg" id="recMessage" data-toggle="modal" data-target="#myModal2">Decode</button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+
+    </div> 
+  </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Message Sent</h4>
+          </div>
+          <div class="modal-body">
+            Your message has been stored and can be retreived with the following pin. Remember this pin so you can share it with those you want - but don't worry! No one else will be able to get it.
+          </div>
+          <div class="modal-footer">
+              <div class="row text-left" style="padding:1em;">
+                  <h4> Your Pin:</h4>
+                  <h3> {{pin}} </h3>
+              </div>
+           
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">{{username}}'s Message</h4>
+          </div>
+          <div class="modal-body">
+              <h4>Remember, this message will only be available once, and then will be deleted. Please save your message if you want to keep it!</h4>
+              <hr />
+              <textarea style="width:100%" rows="3" ng-model="retrievedMessage">
+
+              </textarea>
+              <!--<div> 
+                
+              </div>-->
+            <hr />
+          </div>
+          
+        </div>
       </div>
     </div>
   </div>
@@ -42,7 +145,7 @@
   <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-  <script src="http://code.angularjs.org/1.2.9/angular.min.js"></script>
+
   <script src="/static/js/my_app.js"></script>
 </body>
 </html>
